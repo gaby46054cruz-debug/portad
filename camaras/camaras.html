@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistemas de Cámaras - Gabriel Cruz</title>
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <!-- FontAwesome para íconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="camaras.css">
+</head>
+<body>
+
+    <!-- ENCABEZADO PRINCIPAL -->
+    <header class="main-header">
+        <div class="profile-container">
+            <div class="avatar-frame">
+                <img id="main-logo" src="img/logo-default.jpg" alt="Gabriel Cruz" class="expandable-img">
+            </div>
+            <h1 class="profile-name">Gabriel Cruz</h1>
+            <p class="profile-subtitle">Técnico en Instalación y Monitoreo de Cámaras</p>
+            <button id="open-admin-btn" class="btn-admin-floating"><i class="fa-solid fa-gear"></i> Panel Admin</button>
+        </div>
+    </header>
+
+    <main class="content-wrapper">
+
+        <!-- ==================== SECCIÓN FIJA 1 ==================== -->
+        <section class="section-card static-card">
+            <h2 class="section-title">Instalaciones Residenciales</h2>
+            <p class="section-desc">Sistemas de videovigilancia adaptados para hogares y departamentos.</p>
+
+            <!-- Carrusel de 5 imágenes -->
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img src="img/cas2.jpeg" class="expandable-img" alt="Foto 1"></div>
+                    <div class="swiper-slide"><img src="img/cas3.jpeg" class="expandable-img" alt="Foto 2"></div>
+                    <div class="swiper-slide"><img src="img/cas4.jpeg" class="expandable-img" alt="Foto 3"></div>
+                </div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-pagination"></div>
+            </div>
+
+            <!-- 4 Videos de 2 en 2 -->
+            <div class="video-grid-2x2">
+                <div class="video-item"><video controls preload="metadata" muted loop src="img/cas1.mp4"></video></div>
+                <div class="video-item"><video controls preload="metadata" muted loop src="img/arreglopc.mp4"></video></div>
+              
+            </div>
+        </section>
+
+        <!-- ==================== SECCIÓN FIJA 2 ==================== -->
+        <section class="section-card static-card">
+            <h2 class="section-title">Cámaras Comerciales y sistemas de red</h2>
+            <p class="section-desc">Protección y cobertura completa para depósitos, locales y empresas.</p>
+
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img src="img/mar2.jpeg" class="expandable-img" alt="Foto 1"></div>
+                    <div class="swiper-slide"><img src="img/mar3.jpeg" class="expandable-img" alt="Foto 2"></div>
+                    <div class="swiper-slide"><img src="img/mar4.jpeg" class="expandable-img" alt="Foto 3"></div>
+                </div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-pagination"></div>
+            </div>
+
+            <div class="video-grid-2x2">
+                <div class="video-item"><video controls preload="metadata" muted loop src="img/mar1.mp4"></video></div>
+                <div class="video-item"><video controls preload="metadata" muted loop src="img/nic1.mp4"></video></div>
+                 <div class="video-item"><video controls preload="metadata" muted loop src="img/red1.mp4"></video></div>
+               <div class="video-item"><video controls preload="metadata" muted loop src="red2.mp4"></video></div>
+            </div>
+        </section>
+
+    
+
+        <!-- CONTENEDOR DE SECCIONES DINÁMICAS (Se agregan abajo) -->
+        <div id="dynamic-sections-container"></div>
+
+    </main>
+
+    <!-- LIGHTBOX PARA VER IMÁGENES AMPLIADAS -->
+    <div id="image-modal" class="modal">
+        <span class="close-modal">&times;</span>
+        <img class="modal-content" id="modal-img" alt="Imagen ampliada">
+    </div>
+
+    <!-- MODAL DE ADMINISTRACIÓN -->
+    <div id="admin-modal" class="modal-admin">
+        <div class="admin-modal-content">
+            <span class="close-admin">&times;</span>
+
+            <!-- Formulario Login -->
+            <form id="login-form" class="admin-form">
+                <h2>Iniciar Sesión</h2>
+                <div class="form-group">
+                    <label>Correo Electrónico</label>
+                    <input type="email" name="email" required placeholder="admin@ejemplo.com">
+                </div>
+                <div class="form-group">
+                    <label>Contraseña</label>
+                    <input type="password" name="password" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="btn-primary">Ingresar</button>
+            </form>
+
+            <!-- Panel de Control Principal -->
+            <div id="admin-panel" style="display: none;">
+                <div class="admin-top-bar">
+                    <h2>Panel de Control</h2>
+                    <button id="logout-btn" class="btn-danger"><i class="fa-solid fa-right-from-bracket"></i> Salir</button>
+                </div>
+
+                <!-- Menú de Botones del Admin -->
+                <div class="admin-nav-buttons">
+                    <button id="btn-tab-create" class="btn-tab active"><i class="fa-solid fa-plus"></i> Crear Sección</button>
+                    <button id="btn-tab-list" class="btn-tab"><i class="fa-solid fa-list"></i> Ver Secciones Loaded</button>
+                    <button id="btn-tab-logo" class="btn-tab"><i class="fa-solid fa-image"></i> Cambiar Foto de Logo</button>
+                </div>
+
+                <!-- VISTA 1: CREAR / EDITAR SECCIÓN -->
+                <div id="tab-create-section" class="tab-content active">
+                    <h3 id="form-section-title">Crear Nueva Sección</h3>
+                    <form id="section-form">
+                        <div class="form-group">
+                            <label>Título de la Sección</label>
+                            <input type="text" id="section-title" required placeholder="Ej: Proyecto Barrio Privado">
+                        </div>
+                        <div class="form-group">
+                            <label>Descripción</label>
+                            <textarea id="section-content" rows="2" placeholder="Detalles de la instalación..."></textarea>
+                        </div>
+
+                        <!-- Selector de Cantidad de Fotos -->
+                        <div class="form-group">
+                            <label>Cantidad de Fotos para el Carrusel</label>
+                            <div class="input-with-btn">
+                                <input type="number" id="img-count-input" min="1" max="15" value="5">
+                                <button type="button" id="generate-img-inputs" class="btn-secondary">Generar Campos de Foto</button>
+                            </div>
+                        </div>
+
+                        <!-- Contenedor Dinámico de URLs de Imágenes -->
+                        <div id="image-urls-container" class="urls-group"></div>
+
+                        <!-- Agregar Videos Dinámicamente -->
+                        <div class="form-group margin-top-15">
+                            <label>Videos de la Sección</label>
+                            <button type="button" id="add-video-btn" class="btn-secondary"><i class="fa-solid fa-plus"></i> Agregar Video por URL</button>
+                        </div>
+                        <div id="video-urls-container" class="urls-group"></div>
+
+                        <div class="form-actions">
+                            <button type="submit" id="save-section-btn" class="btn-primary">Guardar Sección</button>
+                            <button type="button" id="cancel-edit-btn" class="btn-secondary" style="display:none;">Cancelar Edición</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- VISTA 2: VER Y MODIFICAR SECCIONES CARGADAS -->
+                <div id="tab-list-sections" class="tab-content">
+                    <h3>Secciones Cargadas</h3>
+                    <div id="admin-sections-list" class="admin-sections-list"></div>
+                </div>
+
+                <!-- VISTA 3: CAMBIAR FOTO DE LOGO -->
+                <div id="tab-change-logo" class="tab-content">
+                    <h3>Cambiar Foto del Encabezado</h3>
+                    <form id="logo-form">
+                        <div class="form-group">
+                            <label>URL de la nueva foto (Redonda)</label>
+                            <input type="url" id="logo-url-input" required placeholder="https://misitio.com/foto-gabriel.jpg">
+                        </div>
+                        <button type="submit" class="btn-primary">Actualizar Logo</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- NOTIFICACIÓN EMERGENTE -->
+    <div id="toast"></div>
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script type="module" src="camaras.js"></script>
+</body>
+</html>

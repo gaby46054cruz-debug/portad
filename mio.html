@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gabriel Cruz | Servicios Pro</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Hoja de Estilos -->
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+  <!-- Fondo Neón / Oscuro -->
+  <div class="bg-overlay"></div>
+
+  <div class="container">
+    <!-- Cabecera -->
+    <header class="profile-section">
+      <div class="profile-img-wrapper">
+        <img src="1.jpeg" alt="Gabriel Cruz" class="profile-img" id="profileImg">
+      </div>
+      <h1 class="profile-name">GABRIEL CRUZ</h1>
+      <p class="profile-location">
+        <span class="location-icon">📍</span> Alderetes - Tucumán
+      </p>
+    </header>
+
+    <!-- Listado de Servicios -->
+    <p class="section-title">MIS SERVICIOS</p>
+    <div class="services-list" id="servicesContainer">
+      
+      <!-- SERVICIO FIJO -->
+      <a href="camaras/camaras.html" class="service-card fixed-card" id="fixedServiceCard">
+        <div class="service-img-wrapper">
+          <img src="img/mar2.jpeg" alt="INSTALACION Y CONFIGURACION DE CAMARAS DE SEGURIDAD" class="service-img" id="fixedServiceImg">
+        </div>
+        <div class="service-info">
+          <h2 class="service-title" id="fixedServiceTitle">INSTALACION Y CONFIGURACION DE CAMARAS DE SEGURIDAD</h2>
+          <p class="service-desc" id="fixedServiceDesc">mira algunos de mis trabajos en instalacion de camaras.</p>
+        </div>
+        <div class="service-arrow">→</div>
+      </a>
+      
+
+      <!-- Los servicios de Firebase aparecerán aquí abajo de forma dinámica -->
+
+    </div>
+
+    <br>
+  <a href="pagina contacto/contacto.html" class="service-card fixed-card" id="fixedServiceCard">
+        <div class="service-img-wrapper">
+          <img src="img/images.jpg" alt="CONTACTAME POR AQUI" class="service-img" id="fixedServiceImg">
+        </div>
+        <div class="service-info">
+          <h2 class="service-title" id="fixedServiceTitle">CONTACTAME POR AQUI</h2>
+          <p class="service-desc" id="fixedServiceDesc">Estoy aquí para ayudarte con cualquier consulta que tengas.</p>
+        </div>
+        <div class="service-arrow">→</div>
+      </a>
+    <!-- Pie de página -->
+    <footer>
+      <p>&copy; <span id="year"></span> GABRIEL CRUZ. Todos los derechos reservados.</p>
+      <p class="admin-trigger-container">
+        <span class="admin-trigger" id="openAdminBtn">● Panel de Control</span>
+      </p>
+    </footer>
+  </div>
+
+  <!-- Modal Principal Admin -->
+  <div class="modal" id="adminModal">
+    <div class="modal-content">
+      
+      <!-- Login -->
+      <div id="loginSection">
+        <h3 class="modal-title">ACCESO ADMINISTRADOR</h3>
+        <div class="form-group">
+          <label>Email de Firebase</label>
+          <input type="email" id="adminEmail" placeholder="tu-email@gmail.com">
+        </div>
+        <div class="form-group">
+          <label>Contraseña</label>
+          <input type="password" id="adminPassword" placeholder="******">
+        </div>
+        <button class="btn btn-primary" id="loginBtn">Ingresar al Panel</button>
+      </div>
+
+      <!-- Panel de Control (Autenticado) -->
+      <div id="dashboardSection" style="display: none;">
+        <!-- Pestañas -->
+        <div class="admin-tabs">
+          <button class="tab-btn active" id="tabCreateBtn">+ Crear Servicio</button>
+          <button class="tab-btn" id="tabListBtn">📋 Ver Servicios (<span id="servCount">0</span>)</button>
+        </div>
+
+        <!-- Pestaña 1: Crear Servicio -->
+        <div id="viewCreate" class="admin-view">
+          <h3 class="modal-title" style="font-size:0.85rem; margin-bottom: 10px;">NUEVO SERVICIO</h3>
+          <form id="addServiceForm">
+            <div class="form-group">
+              <label>Nombre del Servicio</label>
+              <input type="text" id="servTitle" required placeholder="Ej: Instalación de Cámaras IP">
+            </div>
+            <div class="form-group">
+              <label>Descripción Breve</label>
+              <textarea id="servDesc" rows="2" required placeholder="Ej: Configuración de DVR/NVR y cableado estructurado."></textarea>
+            </div>
+            <div class="form-group">
+              <label>URL de la Imagen</label>
+              <input type="url" id="servImg" required placeholder="https://ejemplo.com/imagen.jpg">
+            </div>
+            <div class="form-group">
+              <label>Link del Servicio (Netlify u otro)</label>
+              <input type="url" id="servLink" required placeholder="https://tu-sitio.netlify.app">
+            </div>
+            <button type="submit" class="btn btn-primary">Publicar Servicio</button>
+          </form>
+        </div>
+
+        <!-- Pestaña 2: Lista de Servicios -->
+        <div id="viewList" class="admin-view" style="display: none;">
+          <h3 class="modal-title" style="font-size:0.85rem; margin-bottom: 10px;">GESTIONAR SERVICIOS</h3>
+          <div id="adminList" class="admin-services-container"></div>
+        </div>
+
+        <button class="btn btn-secondary" id="logoutBtn" style="margin-top:12px;">Cerrar Sesión</button>
+      </div>
+
+      <button class="btn btn-close" id="closeModalBtn">Cerrar</button>
+    </div>
+  </div>
+
+  <!-- Modal Secundario: Edición de Servicio -->
+  <div class="modal" id="editModal" style="z-index: 1200;">
+    <div class="modal-content">
+      <h3 class="modal-title">EDITAR SERVICIO</h3>
+      <form id="editServiceForm">
+        <input type="hidden" id="editServId">
+        <div class="form-group">
+          <label>Nombre del Servicio</label>
+          <input type="text" id="editServTitle" required>
+        </div>
+        <div class="form-group">
+          <label>Descripción Breve</label>
+          <textarea id="editServDesc" rows="2" required></textarea>
+        </div>
+        <div class="form-group">
+          <label>URL de la Imagen</label>
+          <input type="url" id="editServImg" required>
+        </div>
+        <div class="form-group">
+          <label>Link del Servicio</label>
+          <input type="url" id="editServLink" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        <button type="button" class="btn btn-close" id="closeEditModalBtn" style="margin-top:8px;">Cancelar</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Script Modular JavaScript -->
+  <script type="module" src="app.js"></script>
+</body>
+</html>

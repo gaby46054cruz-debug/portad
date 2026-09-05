@@ -1,0 +1,213 @@
+/* Paleta estricta: Fondo de imagen oscuro y acentos en Celeste Flúor (#00f0ff) */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #000000;
+    color: #ffffff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Imagen de fondo de alta calidad (fachera) con máscara oscura para no perder contraste */
+.background-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Reemplazá esta URL si preferís otra imagen técnica de fondo */
+    background-image: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1920&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -1;
+}
+
+/* Filtro negro transparente sobre la imagen para que el celeste flúor brille el doble */
+.background-overlay::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(5, 5, 5, 0.85) 100%);
+}
+
+/* Encabezado */
+.contact-header {
+    background-color: rgba(5, 5, 5, 0.9);
+    border-bottom: 3px solid #00f0ff;
+    box-shadow: 0 4px 20px rgba(0, 240, 255, 0.3);
+    padding: 25px 5%;
+    margin-bottom: 40px;
+}
+
+.header-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.btn-back {
+    color: #00f0ff;
+    text-decoration: none;
+    font-weight: bold;
+    border: 1px solid #00f0ff;
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.btn-back:hover {
+    background-color: #00f0ff;
+    color: #000000;
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.6);
+}
+
+.author-signature {
+    font-size: 18px;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 1px;
+}
+
+.contact-title {
+    font-size: 36px;
+    color: #00f0ff;
+    text-align: center;
+    letter-spacing: 5px;
+    text-shadow: 0 0 12px rgba(0, 240, 255, 0.7);
+    font-weight: 900;
+}
+
+/* Contenedor Principal */
+.contact-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.contact-subtitle {
+    text-align: center;
+    color: #cccccc;
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 40px;
+    max-width: 700px;
+    align-self: center;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+/* Grilla de Redes Sociales (Secciones por separado que se adaptan solas) */
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+}
+
+@media (min-width: 768px) {
+    .contact-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Estructura Base de las Tarjetas de Contacto */
+.contact-card {
+    background-color: rgba(10, 10, 10, 0.85);
+    border: 2px solid #1a1a1a;
+    border-radius: 16px;
+    padding: 25px;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    backdrop-filter: blur(8px);
+}
+
+/* Efecto Hover: Al pasar el mouse, los bordes se encienden en Celeste Flúor */
+.contact-card:hover {
+    border-color: #00f0ff;
+    transform: translateY(-8px);
+    box-shadow: 0 0 25px rgba(0, 240, 255, 0.4), inset 0 0 10px rgba(0, 240, 255, 0.1);
+    background-color: rgba(5, 5, 5, 0.95);
+}
+
+/* Cajas de Íconos */
+.icon-box {
+    font-size: 45px;
+    margin-bottom: 15px;
+    transition: transform 0.3s ease;
+}
+
+.contact-card:hover .icon-box {
+    transform: scale(1.15);
+}
+
+/* Colores de identidad de redes integrados al estilo flúor */
+.whatsapp-icon { color: #25d366; text-shadow: 0 0 10px rgba(37, 211, 102, 0.2); }
+.instagram-icon { color: #f72585; text-shadow: 0 0 10px rgba(247, 37, 133, 0.2); }
+.facebook-icon { color: #1877f2; text-shadow: 0 0 10px rgba(24, 119, 242, 0.2); }
+
+/* Al pasar el mouse, unificamos la luz con el tono celeste flúor de tu marca */
+.contact-card:hover .whatsapp-icon,
+.contact-card:hover .instagram-icon,
+.contact-card:hover .facebook-icon {
+    color: #00f0ff;
+    text-shadow: 0 0 15px rgba(0, 240, 255, 0.8);
+}
+
+/* Textos dentro de las tarjetas */
+.card-info h3 {
+    font-size: 18px;
+    color: #ffffff;
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.username-text {
+    font-size: 14px;
+    color: #00f0ff;
+    font-weight: 600;
+    margin-bottom: 12px;
+    letter-spacing: 0.5px;
+}
+
+.action-hint {
+    font-size: 12px;
+    color: #666666;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: color 0.3s;
+}
+
+.contact-card:hover .action-hint {
+    color: #ffffff;
+}
+
+/* Footer */
+.main-footer {
+    text-align: center;
+    padding: 30px;
+    margin-top: 50px;
+    border-top: 1px solid rgba(26, 26, 26, 0.8);
+    background-color: rgba(5, 5, 5, 0.95);
+    color: #555555;
+    font-size: 13px;
+}
